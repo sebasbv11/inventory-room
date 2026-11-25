@@ -1,29 +1,32 @@
-Inventory app
-==================================
+# Inventory — Persistencia con Room
 
-Solution code for Android Basics with Compose.
+Práctica del codelab [Cómo conservar datos con Room](https://developer.android.com/codelabs/basic-android-kotlin-compose-persisting-data-room?hl=es-419), basada en el [proyecto oficial de Google](https://github.com/google-developer-training/basic-android-kotlin-compose-training-inventory-app).
 
-Introduction
-------------
+## Configuración
 
-This app is an Inventory tracking app. Demos how to add, update, sell, and delete items from the local database.
-This app demonstrated the use of Android Jetpack component [Room](https://developer.android.com/training/data-storage/room) database.
-The app also leverages [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel),
-[Flow](https://developer.android.com/kotlin/flow),
-and [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/).
+- Kotlin y Jetpack Compose.
+- Android 15: compileSdk 35 y targetSdk 35; mínimo API 24.
+- Room 2.7.2, KSP y corrutinas.
+- Android Gradle Plugin 8.8.0 y Gradle 8.12.
 
-Pre-requisites
---------------
+## Funcionalidad de esta entrega
 
-You need to know:
-- How to create and use composables.
-- How to navigate between composables, and pass data between them.
-- How to use architecture components including ViewModel, Flow, StateFlow and StateUi.
-- How to use coroutines for long-running tasks.
-- SQLite database and the SQLite query language
+La pantalla Add Item permite registrar nombre, precio y cantidad. Save se habilita al completar los campos; al guardar se inserta el producto en la tabla `items` de `item_database` y se vuelve a Inventory.
 
+Esta primera práctica conserva los datos, pero todavía no muestra los productos en la pantalla principal. La lista, edición y eliminación en la interfaz corresponden al siguiente codelab. Los métodos correspondientes del DAO y del repositorio quedan definidos.
 
-Getting Started
----------------
+## Ejecución y comprobación
 
-1. Download and run the app.
+1. Abrir el proyecto en Android Studio y sincronizar Gradle con JDK 17 o 21.
+2. Seleccionar el Motorola conectado por USB y ejecutar `app`.
+3. Presionar +, completar los tres campos y guardar.
+4. Abrir View > Tool Windows > App Inspection > Database Inspector.
+5. Seleccionar `com.example.inventory`, abrir `item_database` y consultar la tabla `items`.
+6. Reiniciar la app y volver a consultar la tabla para comprobar la persistencia.
+
+## Historial de la práctica
+
+- **Inicial:** proyecto oficial de partida (`starter`) configurado para Android 15.
+- **Final:** entidad, DAO, base de datos, repositorio e integración del guardado con la interfaz.
+
+Se conserva la licencia Apache 2.0 del proyecto original.
