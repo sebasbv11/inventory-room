@@ -1,40 +1,47 @@
-# Inventory — Persistencia con Room
+# Inventory — Room, codelabs 1 y 2
 
-Práctica del codelab [Cómo conservar datos con Room](https://developer.android.com/codelabs/basic-android-kotlin-compose-persisting-data-room?hl=es-419), basada en el [proyecto oficial de Google](https://github.com/google-developer-training/basic-android-kotlin-compose-training-inventory-app).
+Proyecto basado en los codelabs oficiales de Android Developers y en el [código de Google](https://github.com/google-developer-training/basic-android-kotlin-compose-training-inventory-app), con licencia Apache 2.0.
 
 ## Configuración
 
-- Kotlin y Jetpack Compose.
-- Android 15: compileSdk 35 y targetSdk 35; mínimo API 24.
-- Room 2.7.2, KSP y corrutinas.
-- Android Gradle Plugin 8.8.0 y Gradle 8.12.
+Kotlin 2.1.0, Jetpack Compose, Room 2.7.2 y KSP. Android 15: compileSdk 35 y targetSdk 35; mínimo API 24. Android Gradle Plugin 8.8.0, Gradle 8.12 y JDK 17 o 21.
 
-## Funcionalidad de esta entrega
+## Codelab 1: conservar datos
 
-La pantalla Add Item permite registrar nombre, precio y cantidad. Save se habilita al completar los campos; al guardar se inserta el producto en la tabla `items` de `item_database` y se vuelve a Inventory.
+[Guía de persistencia](https://developer.android.com/codelabs/basic-android-kotlin-compose-persisting-data-room?hl=es-419).
 
-Esta primera práctica conserva los datos, pero todavía no muestra los productos en la pantalla principal. La lista, edición y eliminación en la interfaz corresponden al siguiente codelab. Los métodos correspondientes del DAO y del repositorio quedan definidos.
+Entidad Item, ItemDao, InventoryDatabase y repositorio local. La pantalla Add Item registra nombre, precio y cantidad en `item_database`, tabla `items`.
 
-## Ejecución y comprobación
+## Codelab 2: leer y actualizar
 
-1. Abrir el proyecto en Android Studio y sincronizar Gradle con JDK 17 o 21.
-2. Seleccionar el Motorola conectado por USB y ejecutar `app`.
-3. Presionar +, completar los tres campos y guardar.
-4. Abrir View > Tool Windows > App Inspection > Database Inspector.
-5. Seleccionar `com.example.inventory`, abrir `item_database` y consultar la tabla `items`.
-6. Reiniciar la app y volver a consultar la tabla para comprobar la persistencia.
+[Guía de lectura y actualización](https://developer.android.com/codelabs/basic-android-kotlin-compose-update-data-room?hl=es-419).
 
-## Historial de la práctica
+- Lista de productos en LazyColumn, observada mediante Flow y StateFlow.
+- Detalles del producto seleccionado.
+- Sell descuenta una unidad y queda deshabilitado cuando no hay stock.
+- Edit Item carga los valores existentes y guarda los cambios conservando el identificador.
+- Save se deshabilita si un campo requerido está vacío.
+- Delete pide confirmación y elimina el producto antes de regresar al inventario.
 
-- **Inicial:** proyecto oficial de partida (`starter`) configurado para Android 15.
-- **Final:** entidad, DAO, base de datos, repositorio e integración del guardado con la interfaz.
+La base de datos de la primera parte se conserva: no se cambió el esquema ni el identificador de la aplicación.
 
-Se conserva la licencia Apache 2.0 del proyecto original.
+## Ejecutar y probar
 
-## Codelab 2: lectura y actualización
+Abrir el proyecto en Android Studio, sincronizar Gradle y ejecutar `app` en el dispositivo conectado. En `app/src/androidTest/java/com/example/inventory/ItemDaoTest.kt` se incluyen las cinco pruebas instrumentadas del codelab: insertar, consultar todos, consultar uno, actualizar y eliminar. Utilizan una base de datos en memoria independiente del inventario del usuario.
 
-Punto de partida: el commit final del primer codelab, con guardado en Room y Android 15 (SDK 35).
+Para ejecutarlas, abrir ItemDaoTest en Android Studio y ejecutar la clase en el dispositivo. También se pueden ejecutar con `./gradlew connectedDebugAndroidTest`.
 
-La segunda parte implementará la lista observable, los detalles, la venta de una unidad, la edición y la eliminación con confirmación. También incluirá las cinco pruebas instrumentadas de las operaciones del DAO indicadas en la guía.
+## Historial de entregas
 
-Guía: https://developer.android.com/codelabs/basic-android-kotlin-compose-update-data-room?hl=es-419
+1. Inicial del codelab 1: proyecto de partida para Android 15.
+2. Final del codelab 1: persistencia con Room.
+3. Inicial del codelab 2: continuidad desde el final anterior y alcance de la segunda práctica.
+4. Final del codelab 2: lista, detalles, venta, edición, eliminación y pruebas del DAO.
+
+## Pruebas instrumentadas
+
+Las cinco pruebas de ItemDaoTest se ejecutaron correctamente en el Motorola Edge 50 Fusion (Android 16, API 36), manteniendo compileSdk y targetSdk 35. Las pruebas utilizan Room en memoria. La ejecución instrumentada puede reinstalar la aplicación; los datos de ejemplo se volvieron a cargar para la demostración manual.
+
+## Verificación manual en el Motorola
+
+Se comprobó que la lista muestra los productos guardados, que los detalles cargan el producto seleccionado y que Edit Item precarga sus datos. El precio de Prueba se cambió de 3.50 a 4.00 y la cantidad de 2 a 1. Al vaciar el precio, Save se deshabilitó. Una venta dejó la cantidad en cero y deshabilitó Sell. Al confirmar Delete, Prueba desapareció de la lista.
