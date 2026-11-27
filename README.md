@@ -30,3 +30,11 @@ Esta primera práctica conserva los datos, pero todavía no muestra los producto
 - **Final:** entidad, DAO, base de datos, repositorio e integración del guardado con la interfaz.
 
 Se conserva la licencia Apache 2.0 del proyecto original.
+
+## Codelab 2: lectura y actualización
+
+Punto de partida: el commit final del primer codelab, con guardado en Room y Android 15 (SDK 35).
+
+La segunda parte implementará la lista observable, los detalles, la venta de una unidad, la edición y la eliminación con confirmación. También incluirá las cinco pruebas instrumentadas de las operaciones del DAO indicadas en la guía.
+
+Guía: https://developer.android.com/codelabs/basic-android-kotlin-compose-update-data-room?hl=es-419
